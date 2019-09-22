@@ -15,15 +15,13 @@ author: Piotrek <pvanselow.2000@gmail.com>
 
 ## Wstęp
 
-W tym tutorialu poruszę kwestję instalacji Ubuntu (i pokrewnych dystrybucji Linuxa) na pamięci USB. Będzie to instalacja:
+W tym tutorialu poruszę kwestię instalacji Ubuntu (i pokrewnych dystrybucji Linuxa) w wersji UEFI, na pamięci USB z tablicą partycji GPT.
 
-* Ubuntu 18.04.3 LTS
-* W wersji UEFI
-* Na dysku z tablicą partycji GPT
+Ja użyję __Ubuntu 18.04.3 LTS__
 
 ## Co jest potrzebne
 
-* Dysk USB / pendrive: 8 GB, najlepiej USB3.1 Gen1 lub wyższe
+* Dysk USB / pendrive: min. 8 GB, najlepiej USB3.1 Gen1 lub wyższe
 * Pendrive: min. 4 GB, który posłuży nam jako dysk instalacyjny
 * Komputer obsługujący UEFI
 
@@ -42,9 +40,9 @@ W tym tutorialu poruszę kwestję instalacji Ubuntu (i pokrewnych dystrybucji Li
 
 ![Rufus_screenshot](IMG/01_RUFUS-Windows-10-Settings.png)
 
-* Teraz kliknij __START__ i w oknie dialogowym zezwól na pobranie dodatkowych plików.
+* Następnie kliknij __START__ i w oknie dialogowym zezwól na pobranie dodatkowych plików.
 
-## 2. Przygotowanie dysku USB do instalacji Linuxa
+## 2. Przygotowanie dysku USB na którym zainstalujemy Linuxa
 
 ### Uruchom ponownie komputer, wejdź w boot menagera i kliknij (UEFI):nazwa_dysku
 
@@ -55,7 +53,7 @@ W tym tutorialu poruszę kwestję instalacji Ubuntu (i pokrewnych dystrybucji Li
 
 ### Formatowanie i usuwanie partycji z dysk USB
 
-* Aby to zrobić musimy uruchomić program __GParted__. Można to zrobić z terminala albo graficznie.
+* Aby to zrobić musimy uruchomić program __GParted__. Można to zrobić z terminala jak i graficznie.
   * Otwórz terminal: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>  
   * I w terminalu wpisz:  
 
@@ -63,8 +61,7 @@ W tym tutorialu poruszę kwestję instalacji Ubuntu (i pokrewnych dystrybucji Li
     sudo gparted
     ```
 
-* W programie __GParted__ znajdź dysk USB  __/dev/sdX__  przeznaczony do instalacji linuksa.  
-* Od teraz będę go nazywać __/dev/sdX__
+* W programie __GParted__ znajdź swój dysk USB przeznaczony do instalacji linuksa. (Na potrzeby tego tutorialu oznaczmy go jako __/dev/sdX__)
 * Sformatuj wszystkie partycje (może pojawić się potrzeba odmontowania ich):
   * dla zamontowanych partycji dysku: *PPM > Unmount*
   * dla wszystkich partycji dysku: *PPM > Format to > cleared*
@@ -105,7 +102,7 @@ Y
 ubiquity -b
 ```
 
-Zaznacz interesujące Cię opcje instalacji dodatkowego software'u. Kiedy instalator poprosi Cię o wybranie rodzaju instalacji wybierz ostatnią opcję: __Użycie innego rozwiązania__
+Zaznacz interesujące Cię opcje instalacji dodatkowego software'u. Kiedy instalator poprosi Cię o wybranie rodzaju instalacji zaznacz ostatnią opcję: __Użycie innego rozwiązania__
 
 ### Tworzenie partycji dla naszego Linuxa
 
@@ -126,27 +123,27 @@ Znajdź na liście swój dysk USB na którym bedziesz instalować Ubuntu. Nastę
     * Rozmiar
         * W przypadku gdy komputer na którym będziemy używać systemu ma mniej niż 1GB RAMu Partycja ta powinna mieć pojemność dwa razy większą niż ilość RAMu w tym komputerze.
         * Jeżeli nie dotyczy nas ten skrajny przypadek to jej rozmiar powinien być nie mniejszy niż największa konfiguracja RAM na jakiej mamy zamiar kożystać z tego systemu.
-    * Rodzaj partycji: SWAP
+    * Rodzaj partycji: __SWAP__
 
 4. Inne partycje
-    * Możemy zrobić partycje, która będzie widziana przez Windows w takim przypadku wybieramy system plików: __FAT32__ a za punkt montowania dowolny, w którym chcemy aby nasz dysk się pojawiał. Na przykład:
+    * Możemy zrobić partycję, która będzie widoczna dla Windows. W takim przypadku wybieramy system plików: __FAT32__ a punkt montowania dowolny. Na przykład:
         > `/home/MyDisk`
 
     * Można też zrobić osobną partycję dla danych użytkowników naszego systemu, wtedy system plików powinien być ten sam co na partycji z Linuxem a punkt montowania:
         > `/home`
 
-Ponieważ instalacja bootloadera jest wyłączona to na razie nie musimy się o to martwić.
+Ponieważ instalacja bootloadera jest wyłączona, na razie nie musimy się o to martwić.
 Ja wybrałem, że poza podstawowymi trzema partycjami stworzę partycję z której będę mógł kożystać tak jak z pendriva. Moja konfiguracja wygląda więc tak:
 
 ![partitions](IMG/05_new_partitions.png)
 
-### Naciśnij __Zainstaluj__ i poczekaj na zakończenie instalacji, a astępnie wyłącz komputer
+### Naciśnij __Zainstaluj__ i poczekaj na zakończenie instalacji, a następnie wyłącz komputer
 
 ## 4. Ręczna instalacja bootloadera (GRUB)
 
-Dysk nie jest bootowalny z UEFI jeżeli nie posiada bootloadera zainstalowanego na partycji EFI. Z tego powodu nie możemy jeszcze uruchomić naszego nowego systemu. Niestety instalacji GRUBa nie da się wykonać z zewnętrznego systemu. Aby to obejść musimy zalogować się do nowego Linuksa z dysku instalacyjnego.
+Dysk nie jest bootowalny z UEFI jeżeli nie posiada bootloadera zainstalowanego na partycji EFI. Z tego powodu nie możemy jeszcze uruchomić naszego nowego systemu. Niestety instalacji GRUBa nie da się wykonać z zewnątrz. Więc, aby to obejść musimy zalogować się do nowego Linuksa z dysku instalacyjnego.
 
-### Uruchom ponownie dysk instalacyjny w trybie UEFI i włącz "Try Ubuntu without installing" i upewnij się że masz dostęp do internetu
+### Uruchom ponownie dysk instalacyjny w trybie UEFI, włącz "Try Ubuntu without installing" i upewnij się że masz dostęp do internetu
 
 ### Otwórz terminal przy pomocy skrótu <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>
 
@@ -156,20 +153,20 @@ Dysk nie jest bootowalny z UEFI jeżeli nie posiada bootloadera zainstalowanego 
     lsblk
     ```
 
-* Na wyświetlonej liście odnajdź nazwę dysku USB (Nazwa może się różnić tej używanej podczas instalacji). Ponownie na potrzeby tego poradnika oznaczmy go jako __/dev/sdX__ teraz w terminalu wpisz:
+* Na wyświetlonej liście odnajdź nazwę dysku USB (Nazwa może się różnić tej używanej podczas instalacji). Ponownie na potrzeby tego poradnika oznaczmy go jako __/dev/sdX__. Teraz w terminalu wpisz:
 
     ```
     sudo gparted /dev/sdX
     ```
 
 * W programie gparted odnajdź partycje z Linuxem kliknij na nią dwa razy i zapisz sobie:
-  * oznacznenie partycji __/dev/sdXY__ - od teraz tak będzie ona przeze mnie nazywana
+  * Nazwę partycji. *(Nazwijmy ją __/dev/sdXY__)*
   * UUID, np. ***01234567-89ab-cdef-0123-4567890abcde***
 
 ![uuid_linux_part](IMG/06_uuid_linux_part.png)
 
 * To samo zrób z partycją EFI
-  * oznacznenie partycji __/dev/sdXZ__ - od teraz tak będzie ona przeze mnie nazywana
+  * Nazwę partycji. *(Nazwijmy ją __/dev/sdXZ__)*
   * UUID, np. ***0123-ABCD***
   
 * Zamknij GParted
@@ -181,27 +178,27 @@ sudo umount /media/ubuntu/01234567-89ab-cdef-0123-4567890abcde
 sudo mount /dev/sdXY /mnt
 ```
 
-### Ustawmy nowo zainstalowany system tak aby widział nowy bootloader
+### Ustawmy nowo zainstalowany system tak aby widział bootloader
 
 ```
 sudo nano /mnt/etc/fstab
 ```
 
-* Zakomentuj linię zawierającą "/boot/efi" stawiając przed nią znak __#__, a pod nią dodaj nową linię:
+* Zakomentuj linię zawierającą "/boot/efi" stawiając przed nią znak __#__. Pod nią zaś dodaj nową linię:
 
 ```
 UUID=0123-ABCD /boot/efi vfat defaults 0 1
 ```
 
-* Zapisz wciskając <kbd>Ctrl</kbd> + <kbd>x</kbd> następnie <kbd>Y</kbd> i na końcu <kbd>Enter</kbd>
+* Zapisz zmiany używając kombinacji klawiszy <kbd>Ctrl</kbd> + <kbd>x</kbd> następnie <kbd>Y</kbd> i na końcu <kbd>Enter</kbd>
 
 ![fstab_edit](IMG/07_fstab_edit.png)
 
-### Przygotowanie środowiska dla `chroot`
+### Przygotowanie środowiska dla __`chroot`__
 
 __`chroot`__ - to uniksowe polecenie uruchamiające program ze zmienionym katalogiem głównym (root).
 
-Aby z niego skorzystać musimy stworzyć specjalne drzewo katalogów, z zamontowanym ESP i kilkoma dodatkowymi katalogami. Skopiujemy także plik konfiguracyjny *`resolv.conf`*, który da chrootowi dostęp do internetu. Co ważne bootlooader musi być zainstalowany z opcją --removable w trybie ‘Fallback path’ dzięki czemu EFI zawsze będzie w stanie go zauwarzyć.
+Aby z niego skorzystać musimy stworzyć specjalne drzewo katalogów, z zamontowanym ESP i kilkoma dodatkowymi katalogami. Skopiujemy także plik konfiguracyjny *`resolv.conf`*, który da chrootowi dostęp do internetu. Co ważne bootlooader musi być zainstalowany z opcją --removable w trybie ‘Fallback path’ dzięki czemu EFI zawsze będzie w stanie go zauważyć.
 
 ### W terminalu wpisujemy
 
@@ -229,4 +226,11 @@ sudo update-grub
 
 ## Restartujemy komputer i gotowe :-)
 
-
+>__Sources:__  
+https://www.dionysopoulos.me/portable-ubuntu-on-usb-hdd/  
+http://ubuntuhandbook.org/index.php/2014/11/install-real-ubuntu-os-usb-drive/  
+https://wiki.gentoo.org/wiki/GRUB2/Troubleshooting  
+https://superuser.com/questions/1250895/converting-between-gpt-and-mbr-hard-drive-without-losing-data  
+https://askubuntu.com/questions/740253/how-to-install-grub-in-an-external-hard-drive  
+http://woshub.com/how-to-repair-deleted-efi-partition-in-windows-7/  
+https://www.ubackup.com/windows-10/restore-efi-partition-windows-10-8523.html  
