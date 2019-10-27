@@ -133,7 +133,7 @@ Znajdź na liście swój dysk USB na którym bedziesz instalować Ubuntu. Nastę
         > `/home`
 
 Ponieważ instalacja bootloadera jest wyłączona, na razie nie musimy się o to martwić.
-Ja wybrałem, że poza podstawowymi trzema partycjami stworzę partycję z której będę mógł kożystać tak jak z pendriva. Moja konfiguracja wygląda więc tak:
+Ja wybrałem, że poza podstawowymi trzema partycjami stworzę partycję z której będę mógł korzystać tak jak z pendriva. Moja konfiguracja wygląda więc tak:
 
 ![partitions](IMG/05_new_partitions.png)
 
