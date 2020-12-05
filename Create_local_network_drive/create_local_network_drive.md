@@ -64,4 +64,10 @@ __UWAGA:__ Pierwsze 3 wartości wybranego adresu IP __muszą__ być zgodne z pie
     ```
     apt-get install net-tools
     ``` 
-*
+* _samba_:
+    ``` 
+    sudo apt-get install samba
+    ```
+
+## 1. Ustawianie statycznego IP routerze dla komputera z dyskiem sieciowym
+* Sprawdź adres MAC swojego urządzenia za pomocą `$ ifconfig`
