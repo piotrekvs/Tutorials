@@ -8,22 +8,16 @@ sh -c "$(wget -qO- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mast
 
 #Download .zshrc
 cd
-wget https://raw.githubusercontent.com/YASoftwareDev/dotfiles/master/zsh/.zshrc
-
 mv .zshrc .zshrc_
-mv .zshrc.1 .zshrc
-# change powerline10k to powerline9k
-# comment everything that causes errors, eg. fasd.
-
+wget https://raw.githubusercontent.com/piotrekvs/Tutorials/master/Upgrade_your_terminal/.zshrc
 
 
 #Plugins
-
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 
 #Install tmux
