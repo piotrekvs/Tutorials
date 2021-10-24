@@ -10,6 +10,7 @@ fi
 export PATH=$HOME/.npm-global/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH:$HOME/.android-studio/bin:$HOME/.yarn/bin:$PATH
 export CFLAGS="-I/usr/local/boost_1_67_0/"
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
+# export JAVA_HOME=~/.jdks/java
 
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -119,6 +120,7 @@ alias rgmw='rg -No -L --no-filename --no-heading -w'
 alias rgm='rg -No -L --no-filename --no-heading'
 alias stats='sort --parallel=6 | uniq -c | sort -n'
 alias xampp='cd /opt/lampp/'
+alias idea='cd /opt/idea-IC-*'
 
 alias cheat=~/.local/bin/cheat
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
