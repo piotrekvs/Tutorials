@@ -10,7 +10,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.npm-global/bin:$HOME/.yarn/bin:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.android-studio/bin:$PATH
+export PATH=$HOME/.npm-global/bin:$HOME/.yarn/bin:$HOME/bin:$HOME/.local/bin:$PATH
 
 HISTSIZE=1000000
 SAVEHIST=1000000
