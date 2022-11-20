@@ -6,7 +6,6 @@
 mvn_version="3.8.6"
 url="https://dlcdn.apache.org/maven/maven-3/${mvn_version}/binaries/apache-maven-${mvn_version}-bin.tar.gz"
 install_dir="/usr/local/maven"
-env_vars="/etc/profile.d/maven.sh"
 
 if [[ "$1" = "install" && "$(id -u)" = 0 ]]; then
 
@@ -18,17 +17,6 @@ if [[ "$1" = "install" && "$(id -u)" = 0 ]]; then
 	echo "Download..."
 	mkdir ${install_dir}
 	curl -fsSL ${url} | tar xz --strip-components=1 -C ${install_dir}
-
-	# Deprecated *1
-	# https://maven.apache.org/docs/3.5.0/release-notes.html#overview-about-the-changes
-	# echo "Set environmental varibles..."
-	# cat <<- EOF > ${env_vars}
-	# #!/bin/sh
-	# export MAVEN_HOME=${install_dir}
-	# export M2_HOME=${install_dir}
-	# export M2=${install_dir}/bin
-	# EOF
-	# source ${env_vars}
 
 	echo "Update alternatives..."
 	update-alternatives --install "/usr/local/bin/mvn" "mvn" "${install_dir}/bin/mvn" 0
@@ -50,11 +38,6 @@ elif [[ "$1" = "remove" && "$(id -u)" = 0 ]]; then
 	echo "Removing maven:"
 	echo "Remove files..."
 	rm -rf ${install_dir}
-
-	# Deprecated *1
-	# echo "Remove environmental varibles..."
-	# rm ${env_vars}
-
 	echo "Update alternatives..."
 	update-alternatives --remove mvn "${install_dir}/bin/mvn"
 	update-alternatives --list mvn
