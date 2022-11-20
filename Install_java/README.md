@@ -39,7 +39,7 @@ Create a file in `/etc/profile.d/` directory:
 sudo tee ${env_vars} <<- EOF                   
 #!/bin/sh
 export JAVA_HOME=${install_dir}/${jdk_dir}
-export PATH=\$JAVA_HOME:\$PATH
+export PATH=\$JAVA_HOME/bin:\$PATH
 EOF
 ```
 
