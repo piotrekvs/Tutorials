@@ -7,26 +7,28 @@ OpenJDK installer for Debian based systems
 To download OpenJDK go to the official archive website and select the version you want to install:
 <https://jdk.java.net/archive/>
 
+## Extract downloaded archive
+
+Use command below to unpack downloaded archive, change name of the archive.
+
+```bash
+tar -xzf jdk-file.tar.gz
+```
+
 ## Set a few temporary variables
 
 ```bash
 jdk_dir="jdk-version" # Name on the root JDK directory
 env_vars="/etc/profile.d/${jdk_dir}.sh"
-install_dir="/usr/local/lib/jvm/"
+install_dir="/usr/local/lib/jvm"
+echo "$jdk_dir \n$env_vars \n$install_dir"
 ```
 
-## Create directory for JDK installation
+## Create directory for JDK installation and move extracted directory
 
 ```bash
 sudo mkdir ${install_dir}
-```
-
-## Unpack downloaded archive
-
-Use command below to unpack downloaded archive, change name of the archive.
-
-```bash
-sudo tar -xvzf jdk-file.tar.gz -C ${install_dir}
+sudo mv ${jdk_dir} ${install_dir}
 ```
 
 ## Set environment variables
@@ -34,7 +36,7 @@ sudo tar -xvzf jdk-file.tar.gz -C ${install_dir}
 Create a file in `/etc/profile.d/` directory:
 
 ```bash
-sudo cat <<- EOF > ${env_vars}
+sudo tee ${env_vars} <<- EOF                   
 #!/bin/sh
 export JAVA_HOME=${install_dir}/${jdk_dir}
 export PATH=\$JAVA_HOME:\$PATH
@@ -60,7 +62,7 @@ echo $JAVA_HOME
 Add java and javac to system alternatives:
 
 ```bash
-sudo update-alternatives --install "/usr/local/bin/java" "java" "${install_dir}/${jdk_dir}/bin/java" 0 \
+sudo update-alternatives --install "/usr/bin/java" "java" "${install_dir}/${jdk_dir}/bin/java" 0 \
     --slave "/usr/local/bin/javac" "javac" "${install_dir}/${jdk_dir}/bin/javac"
 
 sudo update-alternatives --set java "${install_dir}/${jdk_dir}/bin/java"
@@ -71,4 +73,17 @@ To change alternatives use:
 
 ```bash
 sudo update-alternatives --config java
+```
+
+To remove alternatives use:
+
+```bash
+sudo update-alternatives --remove java "${install_dir}/${jdk_dir}/bin/java"
+```
+
+## Verify JDK installation
+
+```bash
+echo $JAVA_HOME
+java -version
 ```
