@@ -12,6 +12,8 @@ sudo apt install zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+Now log out and then log back into your account to load default shell settings.
+
 ## 3. Download and replace your ZSH configuration file **.zshrc**
 
 ```bash
