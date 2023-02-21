@@ -3,9 +3,9 @@
 # Maven installer for Debian based systems
 # Maven home page: https://maven.apache.org/index.html
 # Variables
-mvn_version="3.8.6"
+mvn_version="3.8.7"
 url="https://dlcdn.apache.org/maven/maven-3/${mvn_version}/binaries/apache-maven-${mvn_version}-bin.tar.gz"
-install_dir="/usr/local/maven"
+install_dir="/opt/maven"
 env_vars="/etc/profile.d/maven.sh"
 
 if [[ "$1" = "install" && "$(id -u)" = 0 ]]; then

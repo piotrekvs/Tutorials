@@ -18,9 +18,9 @@ tar -xzf jdk-file.tar.gz
 ## Set a few temporary variables
 
 ```bash
-jdk_dir="jdk-version" # Name on the root JDK directory
+jdk_dir="jdk-version" # Name of the root JDK directory
 env_vars="/etc/profile.d/${jdk_dir}.sh"
-install_dir="/usr/local/lib/jvm"
+install_dir="/opt/java"
 echo "$jdk_dir \n$env_vars \n$install_dir"
 ```
 
